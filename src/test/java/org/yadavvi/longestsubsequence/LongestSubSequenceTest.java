@@ -17,7 +17,7 @@ public class LongestSubSequenceTest {
 
     private LongestSubSequence longestSubSequence;
 
-    public Object[] subSequences() {
+    public Object[] sequenceAndLengthOfSubSequence() {
         return new Object[]{
                 new Object[]{new int[]{1, 2, 3, 4}, 4},
                 new Object[]{new int[]{5, 3, 4, 8, 6, 7}, 4},
@@ -31,9 +31,9 @@ public class LongestSubSequenceTest {
     }
 
     @Test
-    @Parameters(method = "subSequences")
-    public void longestNonDecreasingSubSequence(int[] subsequence, int length) throws Exception {
-        assertThat(longestSubSequence.longestNonDecreasingSubSequence(subsequence), is(length));
+    @Parameters(method = "sequencesAndLengthOfSubSequence")
+    public void longestNonDecreasingSubSequence(int[] sequence, int length) throws Exception {
+        assertThat(longestSubSequence.longestNonDecreasingSubSequence(sequence), is(length));
     }
 
 }
