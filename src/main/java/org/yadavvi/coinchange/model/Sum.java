@@ -32,17 +32,12 @@ public class Sum {
         return minCoins;
     }
 
-    public List<Coin> getCoins() {
-        return coins;
-    }
-
     public void setMinCoins(int minCoins) {
         this.minCoins = minCoins;
     }
 
-    public void replaceCoins(List<Coin> coins, int j) {
-        this.coins.clear();
-        this.coins.addAll(coins);
-        this.coins.get(j).setValue(this.coins.get(j).getValue() + 1);
+    public List<Coin> getCoins() {
+        return coins;
     }
+
 }

@@ -16,7 +16,7 @@ public class CoinChange {
             sums[i] = new Sum(i, coins);
         }
 
-        for (int i = 0; i <= finalSum; i++) {
+        for (int i = 1; i <= finalSum; i++) {
             for (int j = 0; j < coins.length; j++) {
                 if (coins[j] <= i) {
                     if (sums[i - coins[j]].getMinCoins() + 1 < sums[i].getMinCoins()) {
