@@ -1,4 +1,4 @@
-package org.yadavvi;
+package org.yadavvi.coinchange;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
@@ -20,8 +20,10 @@ public class CoinChangeTest {
     private Object[] coinChangeValues() {
         return new Object[]{
                 new Object[]{new int[]{5, 10, 25}, 30, 2},
-                new Object[]{new int[]{5, 10, 25}, 30, 2},
-                new Object[]{new int[]{5, 10, 25}, 30, 2}
+                new Object[]{new int[]{9, 6, 5, 1}, 11, 2},
+                new Object[]{new int[]{1, 2, 3}, 5, 2},
+                new Object[]{new int[]{1, 3, 5}, 11, 3},
+                new Object[]{new int[]{1, 5, 10, 20, 25}, 40, 2}
         };
     }
 
