@@ -9,12 +9,9 @@ public class LongestSubSequence {
         int[] solution = new int[sequence.length];
         for (int i = 0; i < sequence.length; i++) {
             solution[i] = 1;
-            for (int j = i - 1; j >= 0; j--) {
+            for (int j = 0; j < sequence.length - 1 && j < i; j++) {
                 if (sequence[j] <= sequence[i]) {
                     solution[i] = solution[j] + 1;
-                    break;
-                } else if (solution[j] > solution[i]) {
-                    solution[i] = solution[j];
                 }
             }
         }
