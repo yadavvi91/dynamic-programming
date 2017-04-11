@@ -24,8 +24,8 @@ public class LongestPalindromeSubStringReversedString {
                 char charAtJ = reverse.charAt(j);
                 if (charAtK == charAtJ) {
                     computedPalindrome.append(charAtJ);
-                    /*if (isPalindrome(computedPalindrome.toString())) {*/
-                        j++; k++;
+                    j++; k++;
+                    if (isPalindrome(computedPalindrome.toString())) {
                         if (palindrome.length() < computedPalindrome.length()) {
                             subStringArrays[i] = computedPalindrome.toString();
                             palindrome = subStringArrays[i];
@@ -33,10 +33,7 @@ public class LongestPalindromeSubStringReversedString {
                                 maxLengthPalindrome = subStringArrays[i];
                             }
                         }
-                    /*} else {
-                        k = i; j++;
-                        computedPalindrome.setLength(0);
-                    }*/
+                    }
                 } else {
                     if (k == i) {
                         j++;
