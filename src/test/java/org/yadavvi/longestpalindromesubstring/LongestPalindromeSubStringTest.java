@@ -44,11 +44,11 @@ public class LongestPalindromeSubStringTest {
         assertThat(longestPalindromeSubStringNonDP.longestPalindrome(string), is(palindrome));
     }
 
-    /*@Test
+    @Test
     @Parameters(method = "stringAndPalindrome")
     public void longestPalindromeDP(String string, String palindrome) throws Exception {
         assertThat(longestPalindromeSubStringDP.longestPalindrome(string), is(palindrome));
-    }*/
+    }
 
     @Test
     @Parameters(method = "stringAndPalindrome")
