@@ -46,6 +46,9 @@ public class LongestPalindromeSubStringReversedString {
         }
 
         System.out.printf("String: %s, palindrome: %s\n", s, maxLengthPalindrome);
+        for (int i = 0; i < string.length(); i++) {
+            System.out.printf("Character: %c, palindrome: %s\n", string.charAt(i), subStringArrays[i]);
+        }
         return maxLengthPalindrome;
     }
 
