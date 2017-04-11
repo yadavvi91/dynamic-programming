@@ -21,7 +21,8 @@ public class MaximumNumberOfPathsInMazeTest {
         return new Object[]{
                 new Object[]{new int[][]{{1, 1, 1, 1}, {0, 1, 1, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}}, 6},
                 new Object[]{new int[][]{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 1}, {0, 0, 0, 1}}, 2},
-                new Object[]{new int[][]{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}}, 1}
+                new Object[]{new int[][]{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}}, 1},
+                new Object[]{new int[][]{{1, 0, 1, 1}, {1, 1, 1, 0}, {0, 0, 0, 1}, {0, 0, 0, 1}}, 2}
         };
     }
 

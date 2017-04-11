@@ -17,10 +17,14 @@ public class MaximumNumberOfPathsInMaze {
                 if (i == j) {
                     x = i;
                     y = j;
-                    pathFromLeft = getMaxPaths(maze, maxPaths, x, y - 1);
-                    pathFromTop = getMaxPaths(maze, maxPaths, x - 1, y);
-                    pathFromDiagonalElem = getMaxPaths(maze, maxPaths, x - 1, y - 1);
-                    maxPaths[x][y] = sumOf(pathFromLeft, pathFromTop, pathFromDiagonalElem, 0);
+                    if (maze[x][y] == 0) {
+                        maxPaths[x][y] = 0;
+                    } else {
+                        pathFromLeft = getMaxPaths(maze, maxPaths, x, y - 1);
+                        pathFromTop = getMaxPaths(maze, maxPaths, x - 1, y);
+                        pathFromDiagonalElem = getMaxPaths(maze, maxPaths, x - 1, y - 1);
+                        maxPaths[x][y] = sumOf(pathFromLeft, pathFromTop, pathFromDiagonalElem, 0);
+                    }
                 } else {
                     x = i;
                     y = j;
