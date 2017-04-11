@@ -11,12 +11,10 @@ public class LongestPalindromeSubStringDP {
         int maxLength = 1;
         int maxI = 0, maxJ = 0;
 
-        for (int i = 0; i < string.length(); i++) {
-            palindrome[i][i] = 1;
-        }
-
         for (int k = 0; k < string.length(); k++) {
-            for (int i = (k / 2) - 1, j = (k / 2) + 1; i >= 0 && j < string.length(); i++, j--) {
+            palindrome[k][k] = 1;
+
+            for (int i = k - 1, j = k + 1; i >= 0 && j < string.length(); i--, j++) {
                 if (string.charAt(i) == string.charAt(j)) {
                     palindrome[i][j] = palindrome[i + 1][j - 1] + 2;
                     if (maxLength < palindrome[i][j]) {
@@ -28,7 +26,7 @@ public class LongestPalindromeSubStringDP {
                     break;
                 }
             }
-            for (int i = (k / 2), j = (k / 2) + 1; i >= 0 && j < string.length(); i++, j--) {
+            for (int i = k, j = k + 1; i >= 0 && j < string.length(); i--, j++) {
                 if (string.charAt(i) == string.charAt(j)) {
                     palindrome[i][j] = palindrome[i + 1][j - 1] + 2;
                     if (maxLength < palindrome[i][j]) {
