@@ -50,10 +50,10 @@ public class LongestPalindromeSubStringTest {
         assertThat(longestPalindromeSubStringDP.longestPalindrome(string), is(palindrome));
     }*/
 
-    /*@Test
+    @Test
     @Parameters(method = "stringAndPalindrome")
     public void longestPalindromeReversedString(String string, String palindrome) throws Exception {
         assertThat(longestPalindromeSubStringReversedString.longestPalindrome(string), is(palindrome));
-    }*/
+    }
 
 }
