@@ -8,44 +8,40 @@ public class LongestPalindromeSubStringDP {
     public String longestPalindrome(String s) {
         String string = s;
         int[][] palindrome = new int[string.length()][string.length()];
-        int maxLength = 0;
+        int maxLength = 1;
         int maxI = 0, maxJ = 0;
 
-        // This is done by (i == j)
-        /*for (int i = 0; i < string.length(); i++) {
+        for (int i = 0; i < string.length(); i++) {
             palindrome[i][i] = 1;
-        }*/
+        }
 
-        for (int j = 0; j < string.length(); j++) {
-            for (int i = 0; i < string.length(); i++) {
-                if (i == j) {
-                    palindrome[i][j] = 1;
+        for (int k = 0; k < string.length(); k++) {
+            for (int i = (k / 2) - 1, j = (k / 2) + 1; i >= 0 && j < string.length(); i++, j--) {
+                if (string.charAt(i) == string.charAt(j)) {
+                    palindrome[i][j] = palindrome[i + 1][j - 1] + 2;
                     if (maxLength < palindrome[i][j]) {
-                        maxLength = 1;
+                        maxLength = palindrome[i][j];
                         maxI = i;
                         maxJ = j;
                     }
                 } else {
-                    if (i >= j || j <= 0) continue;
-                    if (string.charAt(i + 1) == string.charAt(j - 1)) {
-                        if (i + 1 == j - 1) palindrome[i][j] = palindrome[i + 1][j - 1] + 1;
-                        else palindrome[i][j] = palindrome[i + 1][j - 1] + 2;
-                        if (maxLength < palindrome[i][j]) {
-                            maxLength = palindrome[i][j];
-                            maxI = i;
-                            maxJ = j;
-                        }
-                    } else {
-                        palindrome[i][j] = 1;
-                        if (maxLength < palindrome[i][j]) {
-                            maxLength = palindrome[i][j];
-                            maxI = i;
-                            maxJ = j;
-                        }
+                    break;
+                }
+            }
+            for (int i = (k / 2), j = (k / 2) + 1; i >= 0 && j < string.length(); i++, j--) {
+                if (string.charAt(i) == string.charAt(j)) {
+                    palindrome[i][j] = palindrome[i + 1][j - 1] + 2;
+                    if (maxLength < palindrome[i][j]) {
+                        maxLength = palindrome[i][j];
+                        maxI = i;
+                        maxJ = j;
                     }
+                } else {
+                    break;
                 }
             }
         }
+
         // Since maxJ is inclusive
         return string.substring(maxI, maxJ + 1);
     }
