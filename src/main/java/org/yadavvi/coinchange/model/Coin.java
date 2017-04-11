@@ -30,6 +30,6 @@ public class Coin {
 
     @Override
     public String toString() {
-        return "Value: " + value + ", count: " + count;
+        return value + "x" + count;
     }
 }

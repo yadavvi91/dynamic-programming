@@ -26,6 +26,7 @@ public class CoinChange {
                 }
             }
         }
+        System.out.printf("Sum: %3d, MinCoins: %2d, coins: %s\n", finalSum, sums[finalSum].getMinCoins(), sums[finalSum].getCoins());
         return sums[finalSum].getMinCoins();
     }
 
