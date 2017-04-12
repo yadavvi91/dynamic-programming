@@ -30,4 +30,54 @@ public class LongestSubSequenceZigZag {
         }
         return solution[sequence.length - 1];
     }
+
+    public int longestZigZagDP(int[] sequence) {
+        int[] solution = new int[sequence.length];
+        solution[0] = 1;
+        if (sequence.length == 1) return solution[sequence.length - 1];
+
+        boolean increased = false;
+        if (solution[0] == solution[1]) {
+            solution[1] = 1;
+        } else {
+            solution[1] = 2;
+            increased = true;
+        }
+
+        for (int i = 2; i < sequence.length; i++) {
+            if (sequence[i - 2] > sequence[i - 1] && sequence[i - 1] > sequence[i]) {
+                solution[i] = solution[i - 1];
+            } else if (sequence[i - 2] > sequence[i - 1] && sequence[i - 1] < sequence[i]) {
+                solution[i] = solution[i - 1] + 1;
+                increased = true;
+            } else if (sequence[i - 2] > sequence[i - 1] && sequence[i - 1] == sequence[i]) {
+                solution[i] = solution[i - 1];
+            } else if (sequence[i - 2] < sequence[i - 1] && sequence[i - 1] > sequence[i]) {
+                solution[i] = solution[i - 1] + 1;
+                increased = false;
+            } else if (sequence[i - 2] < sequence[i - 1] && sequence[i - 1] < sequence[i]) {
+                solution[i] = solution[i - 1];
+            } else if (sequence[i - 2] < sequence[i - 1] && sequence[i - 1] == sequence[i]) {
+                solution[i] = solution[i - 1];
+            } else if (sequence[i - 2] == sequence[i - 1] && sequence[i - 1] > sequence[i]) {
+                if (increased) {
+                    solution[i] = solution[i - 1] + 1;
+                    increased = false;
+                } else {
+                    solution[i] = solution[i - 1];
+                }
+            } else if (sequence[i - 2] == sequence[i - 1] && sequence[i - 1] < sequence[i]) {
+                if (!increased) {
+                    solution[i] = solution[i - 1] + 1;
+                    increased = true;
+                } else {
+                    solution[i] = solution[i - 1];
+                }
+            } else if (sequence[i - 2] == sequence[i - 1] && sequence[i - 1] == sequence[i]) {
+                solution[i] = solution[i - 1];
+            }
+        }
+
+        return solution[sequence.length - 1];
+    }
 }
