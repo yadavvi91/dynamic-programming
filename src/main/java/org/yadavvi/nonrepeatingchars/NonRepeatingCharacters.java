@@ -8,26 +8,39 @@ public class NonRepeatingCharacters {
     public String nonRepeatingCharString(String input) {
         if (input == null) return null;
         if (input.length() == 0 || input.length() == 1) return input;
-        if (input.length() == 2) {
-            if (input.charAt(0) == input.charAt(1)) return "";
-            else return input;
+
+        StringBuilder builder = new StringBuilder(input.length());
+
+        // Find the first repeated element
+        int i = 1;
+        while (i < input.length()) {
+            if (input.charAt(i) != input.charAt(i - 1)) i++;
+            else break;
         }
 
-        String workingCopy = input;
-        StringBuilder reserveCopy = new StringBuilder(input.length());
-        for (int i = 0; i < workingCopy.length(); i++) {
-            for (int j = i + 1; j < workingCopy.length(); j++) {
-                if (workingCopy.charAt(i) == workingCopy.charAt(j)) {
-                    while (j < workingCopy.length() && i < workingCopy.length() && workingCopy.charAt(i) == workingCopy.charAt(j)) j++;
-                    if (j < workingCopy.length()) i = j;
-                    else break;
-                } else {
-                    reserveCopy.append(workingCopy.charAt(i));
-                    break;
-                }
-            }
+        // If the repeated element was found i.e. (i < input.length()) is TRUE
+        // append the string till the repeated element in the finalString to be.
+        // ((We will compute nonRepeatingCharString of this finalString.))
+        // Otherwise, since NO repeated element was found, the input string
+        // is good enough an answer, hence return the input string itself
+        if (i < input.length()) {
+            builder.append(input.substring(0, i - 1));
+        } else {
+            return input;
         }
-        return nonRepeatingCharString(reserveCopy.toString());
+
+        // If a repeated element was found, skip till all the repeated elements are exhausted.
+        while (i < input.length()) {
+            if (input.charAt(i) == input.charAt(i - 1)) i++;
+            else break;
+        }
+        // Append the remaining elements to the finalString to be.
+        // We will compute nonRepeatingCharString of this finalString.
+        if (i < input.length()) {
+            builder.append(input.substring(i, input.length()));
+        }
+
+        return nonRepeatingCharString(builder.toString());
     }
 
 }
