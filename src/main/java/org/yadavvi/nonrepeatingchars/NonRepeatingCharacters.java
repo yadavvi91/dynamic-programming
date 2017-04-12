@@ -13,20 +13,21 @@ public class NonRepeatingCharacters {
             else return input;
         }
 
-        StringBuilder workingCopy = new StringBuilder(input.length());
-        workingCopy.append(input.charAt(0));
-        for (int i = 1; i < input.length(); i++) {
-            if (input.charAt(i) == input.charAt(i - 1)) {
-                if (i + 1 >= input.length()) break;
-
-                workingCopy.deleteCharAt(workingCopy.length() - 1);
-                workingCopy.append(input.substring(i + 1, input.length()));
-                return nonRepeatingCharString(workingCopy.toString());
-            } else {
-                workingCopy.append(input.charAt(i));
+        String workingCopy = input;
+        StringBuilder reserveCopy = new StringBuilder(input.length());
+        for (int i = 0; i < workingCopy.length(); i++) {
+            for (int j = i + 1; j < workingCopy.length(); j++) {
+                if (workingCopy.charAt(i) == workingCopy.charAt(j)) {
+                    while (j < workingCopy.length() && i < workingCopy.length() && workingCopy.charAt(i) == workingCopy.charAt(j)) j++;
+                    if (j < workingCopy.length()) i = j;
+                    else break;
+                } else {
+                    reserveCopy.append(workingCopy.charAt(i));
+                    break;
+                }
             }
         }
-        return workingCopy.toString();
+        return nonRepeatingCharString(reserveCopy.toString());
     }
 
 }
