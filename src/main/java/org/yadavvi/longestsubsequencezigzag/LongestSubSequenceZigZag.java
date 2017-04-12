@@ -10,7 +10,7 @@ public class LongestSubSequenceZigZag {
         solution[0] = 1;
         if (sequence.length == 1) return solution[sequence.length - 1];
 
-        if (solution[0] == solution[1]) {
+        if (sequence[0] == sequence[1]) {
             solution[1] = 1;
         } else {
             solution[1] = 2;
@@ -37,8 +37,11 @@ public class LongestSubSequenceZigZag {
         if (sequence.length == 1) return solution[sequence.length - 1];
 
         boolean increased = false;
-        if (solution[0] == solution[1]) {
+        if (sequence[0] == sequence[1]) {
             solution[1] = 1;
+        } else if (sequence[0] > sequence[1]) {
+            solution[1] = 2;
+            increased = false;
         } else {
             solution[1] = 2;
             increased = true;
