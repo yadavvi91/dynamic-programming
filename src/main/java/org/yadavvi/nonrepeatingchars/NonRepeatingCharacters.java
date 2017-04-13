@@ -43,4 +43,40 @@ public class NonRepeatingCharacters {
         return nonRepeatingCharString(builder.toString());
     }
 
+    public String nonRepeatingCharStringWORecursion(String input) {
+        if (input == null) return null;
+        if (input.length() == 0 || input.length() == 1) return input;
+
+        StringBuilder builder = new StringBuilder(input.length());
+
+        for (int j = 0; j < input.length(); j++) {
+            if (input.length() == 0 || input.length() == 1) return input;
+
+            builder.setLength(0);
+            int i = 1;
+            while (i < input.length()) {
+                if (input.charAt(i) != input.charAt(i - 1)) i++;
+                else break;
+            }
+
+            if (i < input.length()) {
+                builder.append(input.substring(0, i - 1));
+            } else {
+                return input;
+            }
+
+            while (i < input.length()) {
+                if (input.charAt(i) == input.charAt(i - 1)) i++;
+                else break;
+            }
+            if (i < input.length()) {
+                builder.append(input.substring(i, input.length()));
+            }
+
+            input = builder.toString();
+        }
+
+        return input;
+    }
+
 }
