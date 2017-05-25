@@ -44,37 +44,6 @@ public class CombinationOfNumbers {
         arr[0].add(new ArrayList<>());
         combination(value, maxCombinations, arr);
         System.out.println("combination             : " + arr[value]);
-        // printCombinationsDP(arr, maxCombinations);
-    }
-
-    private static void printCombinationsDP(List<List<Integer>>[] arr, int maxCombinations) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < arr.length; i++) {
-            List<List<Integer>> list = arr[i];
-            builder.setLength(0);
-            builder.append(String.format("%2d: ", i));
-            builder.append("[");
-            for (List<Integer> values : list) {
-                builder.append("[");
-                int numOfSpaces = values.size();
-                while (maxCombinations - numOfSpaces > 0) {
-                    builder.append("    ");
-                    numOfSpaces++;
-                }
-                for (Integer value1 : values) {
-                    builder.append(String.format("%2d, ", value1));
-                }
-                if (builder.length() > 2) {
-                    builder.delete(builder.length() - 2, builder.length());
-                }
-                builder.append("], ");
-            }
-            if (builder.length() > 2) {
-                builder.delete(builder.length() - 2, builder.length());
-            }
-            builder.append("]");
-            System.out.println(builder.toString());
-        }
     }
 
     private static void combination(int value, int maxCombinations, List<List<Integer>>[] arr) {
