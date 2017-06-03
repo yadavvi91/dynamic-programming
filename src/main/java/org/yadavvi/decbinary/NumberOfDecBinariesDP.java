@@ -23,10 +23,9 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
         decBinaries.add(forOne);
     }
 
-
     public static void main(String[] args) {
         NumberOfDecBinaries numberOfDecBinaries = new NumberOfDecBinariesDP();
-        System.out.println("For: " + 112 + " - " + numberOfDecBinaries.decBinaryStringForPosition(112));
+        System.out.println("For: " + 605 + " - " + numberOfDecBinaries.decBinaryStringForPosition(605));
     }
 
     @Override
@@ -56,11 +55,15 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
         if (sum == position) {
             return decBinaries.get(value - 1).peek();
         } else if (sum > position) {
-            Stack<String> stack = decBinaries.get(value - 1);
-            for (int i = sum - decBinaries.get(value - 1).size(); i < position; i++) {
-                stack.pop();
+            sum = sum - decBinaries.get(value - 1).size();
+            int remaining = position - sum;
+            String decBinaryAtPosition = "";
+            for (String string : decBinaries.get(value - 1)) {
+                if (remaining <= 0) break;
+                decBinaryAtPosition = string;
+                remaining--;
             }
-            return stack.pop();
+            return decBinaryAtPosition;
         }
         return null;
     }
@@ -87,7 +90,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
         String maxMinusOneString = "";
         for (String decBinaryValue : ReverseIterable.reversed(decBinaries.get(remainingValue))) {
             if (decBinaryValue.length() == decBinary.length() - 1) {
-                maxMinusOneString = decBinaryValue;
+                maxMinusOneString = decBinArrChar[max] + decBinaryValue;
             }
             if (decBinaryValue.length() > decBinary.length() - 1) continue;
             StringBuilder decBinaryValueBuilder = new StringBuilder(decBinaryValue);
@@ -96,14 +99,15 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
             }
             decBinaryValue = decBinaryValueBuilder.toString();
             decBinariesForValue.push(decBinArrChar[max] + decBinaryValue);
+             System.out.println("decBinary:" + decBinary + " - " + decBinariesForValue);
         }
 
         String nextDecBinaryString;
         if (decBinArr[max - 1] + 2 > 9) {
-            if (maxMinusOneString.equalsIgnoreCase(decBinary.substring(1))) return decBinariesForValue;
+            if (maxMinusOneString.equalsIgnoreCase(decBinary)) return decBinariesForValue;
 
             char[] decBinArrChar2 = new StringBuilder(maxMinusOneString).reverse().toString().toCharArray();
-            int[] decBinArr2 = new int[decBinArrChar.length];
+            int[] decBinArr2 = new int[decBinArrChar2.length];
             for (int i = 0; i < decBinArrChar2.length; i++) {
                 decBinArr2[i] = decBinArrChar2[i] - '0';
             }
@@ -115,9 +119,9 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
                 builder.append(decBinArr2[i]);
             }
             nextDecBinaryString = builder.toString();
-            nextDecBinaryString = decBinArr[max] == 0 ? nextDecBinaryString : decBinArr[max] + nextDecBinaryString;
+            nextDecBinaryString = decBinArr2[max] == 0 ? nextDecBinaryString : decBinArr2[max] + nextDecBinaryString;
 
-            // System.out.println("When > 9 - DecBinString: " + nextDecBinaryString);
+             System.out.println("When > 9 - DecBinString: " + nextDecBinaryString);
         } else {
             StringBuilder builder = new StringBuilder();
             decBinArr[max - 1] += 2;
