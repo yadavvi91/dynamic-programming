@@ -25,7 +25,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
 
     public static void main(String[] args) {
         NumberOfDecBinaries numberOfDecBinaries = new NumberOfDecBinariesDP();
-        System.out.println("For: " + 605 + " - " + numberOfDecBinaries.decBinaryStringForPosition(605));
+        System.out.println("For: " + 617384 + " - " + numberOfDecBinaries.decBinaryStringForPosition(617384));
     }
 
     @Override
@@ -99,11 +99,12 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
             }
             decBinaryValue = decBinaryValueBuilder.toString();
             decBinariesForValue.push(decBinArrChar[max] + decBinaryValue);
-             System.out.println("decBinary:" + decBinary + " - " + decBinariesForValue);
+            // System.out.println("decBinary:" + decBinary + " - " + decBinariesForValue);
         }
 
         String nextDecBinaryString;
         if (decBinArr[max - 1] + 2 > 9) {
+            // System.out.println(maxMinusOneString);
             if (maxMinusOneString.equalsIgnoreCase(decBinary)) return decBinariesForValue;
 
             char[] decBinArrChar2 = new StringBuilder(maxMinusOneString).reverse().toString().toCharArray();
@@ -113,17 +114,20 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
             }
 
             StringBuilder builder = new StringBuilder();
+            if (max - 1 <= 0) return decBinariesForValue;
             decBinArr2[max - 1] += 2;
             decBinArr2[max] -= 1;
             for (int i = 0; i < decBinArr2.length - 1; i++) {
                 builder.append(decBinArr2[i]);
             }
-            nextDecBinaryString = builder.toString();
+            nextDecBinaryString = builder.reverse().toString();
             nextDecBinaryString = decBinArr2[max] == 0 ? nextDecBinaryString : decBinArr2[max] + nextDecBinaryString;
 
-             System.out.println("When > 9 - DecBinString: " + nextDecBinaryString);
+            // System.out.println("When > 9 - DecBinString: " + nextDecBinaryString);
+            return getDecBinariesCombForADecNumber(value, nextDecBinaryString, decBinariesForValue);
         } else {
             StringBuilder builder = new StringBuilder();
+            if (max - 1 < 0) return decBinariesForValue;
             decBinArr[max - 1] += 2;
             decBinArr[max] -= 1;
             for (int i = 0; i < decBinArr.length - 1; i++) {
@@ -133,8 +137,8 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
             nextDecBinaryString = decBinArr[max] == 0 ? nextDecBinaryString : decBinArr[max] + nextDecBinaryString;
 
             // System.out.println("When !> 9 - DecBinString: " + nextDecBinaryString);
+            return getDecBinariesCombForADecNumber(value, nextDecBinaryString, decBinariesForValue);
         }
-        return getDecBinariesCombForADecNumber(value, nextDecBinaryString, decBinariesForValue);
     }
 
     private int getPowerOf2ForPosInBinaryNumber(int length) {
