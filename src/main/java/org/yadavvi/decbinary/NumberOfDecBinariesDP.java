@@ -40,7 +40,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
             // Get all the combinations possible for <1_____, 57>, <0_____, 57>, <00____, 57>, <000___, 57>,
             // <0000__, 57>, <00000_, 57>, <000000, 57>. Of this (<0000__, 57>, <00000_, 57>, <000000, 57>) wouldn't
             // exist because the largest value that can be formed using __ characters or less in DecBinary is <99, 27>
-            decBinaries.add(getDecBinariesCombForADecNumber(value, binaryOfValue));
+            decBinaries.add(getDecBinariesCombForADecNumber(value, binaryOfValue, new Stack<>()));
 
             // Add the number of combinations for "value" to sum
             sum = sum + decBinaries.get(value).size(); value++;
@@ -55,24 +55,66 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
         return null;
     }
 
-    private Stack<String> getDecBinariesCombForADecNumber(int value, String binaryOfValue) {
-        Stack<String> decBinariesForValue = new Stack<>();
-        int valOfMaxPosition = getValueForIndexOfBinaryNumber(binaryOfValue.length() - 1);
-        int remainingValue = value - valOfMaxPosition;
-        for (String decBinary : decBinaries.get(remainingValue)) {
-            decBinariesForValue.push("1" + decBinary);
+    private Stack<String> getDecBinariesCombForADecNumber(int value, String decBinary,
+                                                          Stack<String> decBinariesForValue) {
+        char[] decBinArrChar = new StringBuilder(decBinary).reverse().toString().toCharArray();
+        int[] decBinArr = new int[decBinArrChar.length];
+        for (int i = 0; i < decBinArr.length; i++) {
+            decBinArr[i] = decBinArrChar[i] - '0';
+        }
+        int max = decBinArr.length - 1;
+
+        int powOf2ForMaxPos = getPowerOf2ForPosInBinaryNumber(max);
+        int remainingValue = value - powOf2ForMaxPos;
+        if (remainingValue < 0) return decBinariesForValue;
+        for (String decBinaryValues : decBinaries.get(remainingValue)) {
+            // 32(5 or less); so if <100000, 32> is encountered, it breaks because the numbers are sorted
+            // i.e. for 5 the numbers would be [[5], [1, 3], [2, 1], [1, 0, 1]] thus 2 char decBinaries [1, 3], [2, 1]
+            // occur before 3 char decBinary [1, 0, 1].
+            if (decBinariesForValue.size() > max) break;
+            decBinariesForValue.push(decBinArrChar[max] + decBinaryValues);
         }
 
-        String newDecBinaryForValue = reducedPower(value, binaryOfValue.length());
+        // Reduce 1 from max and add 2 to (max - 1) and get all combinations for them.
+        if (decBinArr[max] == 1) {
+            if (max - 1 >= 0 && decBinArr[max - 1] + 2 > 9) {
+                String decBinString = getTheMinimumRep(remainingValue);
+                if (decBinString.equalsIgnoreCase(decBinary.substring(1))) {
+                    return decBinariesForValue;
+                } else {
+                    decBinString = getTheRep(remainingValue, max - 1);
+                    if (decBinString == null) return decBinariesForValue;
+                    return getDecBinariesCombForADecNumber(remainingValue, decBinString, decBinariesForValue);
+                }
+            } else {
+                StringBuilder builder = new StringBuilder();
+                decBinArr[max - 1] += 2;
+                for (int i = 0; i < decBinArr.length - 1; i++) {
+                    builder.append(decBinArr[i]);
+                }
+                String decBinString = builder.reverse().toString();
+                System.out.println("DecBinString: " + decBinString);
+                getDecBinariesCombForADecNumber(remainingValue, decBinString, decBinariesForValue);
+            }
+        } else {
+
+        }
 
         return decBinariesForValue;
     }
 
-    private String reducedPower(int value, int length) {
+    private String getTheRep(int remainingValue, int length) {
+        for (String string : decBinaries.get(remainingValue)) {
+            if (string.length() == length) return string;
+        }
         return null;
     }
 
-    private int getValueForIndexOfBinaryNumber(int length) {
+    private String getTheMinimumRep(int remainingValue) {
+        return decBinaries.get(remainingValue).peek();
+    }
+
+    private int getPowerOf2ForPosInBinaryNumber(int length) {
         int decimal = 1;
         for (int i = 0; i < length; i++) {
             decimal *= 2;
