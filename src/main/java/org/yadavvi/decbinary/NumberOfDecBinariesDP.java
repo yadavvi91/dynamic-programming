@@ -1,6 +1,7 @@
 package org.yadavvi.decbinary;
 
-import java.util.Collections;
+import org.yadavvi.util.ReverseIterable;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -86,12 +87,12 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
 
         boolean isMaxMinusOneFound = false;
         String maxMinusOneString = "";
-        for (String decBinaryValue : decBinaries.get(remainingValue)) {
+        for (String decBinaryValue : ReverseIterable.reversed(decBinaries.get(remainingValue))) {
             if (!isMaxMinusOneFound && decBinaryValue.length() == decBinary.length() - 1) {
                 maxMinusOneString = decBinaryValue;
                 isMaxMinusOneFound = true;
             }
-            if (decBinaryValue.length() > decBinary.length() - 1) break;
+            if (decBinaryValue.length() > decBinary.length() - 1) continue;
             StringBuilder decBinaryValueBuilder = new StringBuilder(decBinaryValue);
             while (decBinaryValueBuilder.length() < decBinary.length() - 1) {
                 decBinaryValueBuilder.insert(0, "0");
@@ -131,17 +132,6 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
             // System.out.println("When !> 9 - DecBinString: " + nextDecBinaryString);
         }
         return getDecBinariesCombForADecNumber(value, nextDecBinaryString, decBinariesForValue);
-    }
-
-    private String getTheRep(int remainingValue, int length) {
-        for (String string : decBinaries.get(remainingValue)) {
-            if (string.length() == length) return string;
-        }
-        return null;
-    }
-
-    private String getTheMinimumRep(int remainingValue) {
-        return decBinaries.get(remainingValue).peek();
     }
 
     private int getPowerOf2ForPosInBinaryNumber(int length) {
