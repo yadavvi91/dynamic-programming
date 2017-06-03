@@ -26,7 +26,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
 
     public static void main(String[] args) {
         NumberOfDecBinaries numberOfDecBinaries = new NumberOfDecBinariesDP();
-        System.out.println("For: " + 300 + " - " + numberOfDecBinaries.decBinaryStringForPosition(300));
+        System.out.println("For: " + 284 + " - " + numberOfDecBinaries.decBinaryStringForPosition(284));
     }
 
     @Override
@@ -103,7 +103,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
         if (decBinArr[max - 1] + 2 > 9) {
             if (maxMinusOneString.equalsIgnoreCase(decBinary.substring(1))) return decBinariesForValue;
 
-            char[] decBinArrChar2 = maxMinusOneString.toCharArray();
+            char[] decBinArrChar2 = new StringBuilder(maxMinusOneString).reverse().toString().toCharArray();
             int[] decBinArr2 = new int[decBinArrChar.length];
             for (int i = 0; i < decBinArrChar2.length; i++) {
                 decBinArr2[i] = decBinArrChar2[i] - '0';
