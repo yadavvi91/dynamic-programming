@@ -2,6 +2,10 @@ package org.yadavvi.decbinary;
 
 import org.yadavvi.util.ReverseIterable;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -25,7 +29,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
 
     public static void main(String[] args) {
         NumberOfDecBinaries numberOfDecBinaries = new NumberOfDecBinariesDP();
-        System.out.println("For: " + Integer.MAX_VALUE / 91 + " - " + numberOfDecBinaries.decBinaryStringForPosition(Integer.MAX_VALUE / 91));
+        System.out.println("For: " + Integer.MAX_VALUE / 92 + " - " + numberOfDecBinaries.decBinaryStringForPosition(Integer.MAX_VALUE / 92));
     }
 
     @Override
@@ -49,6 +53,17 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
             value++;
         }
 
+        /*File file = new File(System.getenv().get("HOME") + "/output.txt");
+        try {
+            file.createNewFile();
+            try (BufferedWriter stream = new BufferedWriter(new FileWriter(file))) {
+                for (int i = 0; i < decBinaries.size(); i++) {
+                    stream.write(String.format("%3d(%3d): %s%n", i, decBinaries.get(i).size(), decBinaries.get(i)));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }*/
         if (sum == position) {
             return decBinaries.get(value - 1).peek();
         } else if (sum > position) {
