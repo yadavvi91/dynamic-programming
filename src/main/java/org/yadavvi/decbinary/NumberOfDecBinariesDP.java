@@ -26,7 +26,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
 
     public static void main(String[] args) {
         NumberOfDecBinaries numberOfDecBinaries = new NumberOfDecBinariesDP();
-        System.out.println("For: " + 88 + " - " + numberOfDecBinaries.decBinaryStringForPosition(88));
+        System.out.println("For: " + 300 + " - " + numberOfDecBinaries.decBinaryStringForPosition(300));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
         }
 
         for (int i = 0; i < decBinaries.size(); i++) {
-            System.out.printf("%3d: %s%n", i, decBinaries.get(i));
+            System.out.printf("%3d(%3d): %s%n", i, decBinaries.get(i).size(), decBinaries.get(i));
         }
         if (sum == position) {
             return decBinaries.get(value - 1).peek();
@@ -85,12 +85,10 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
         int remainingValue = value - powOf2ForMaxPos * decBinArr[max];
         if (remainingValue < 0) return decBinariesForValue;
 
-        boolean isMaxMinusOneFound = false;
         String maxMinusOneString = "";
         for (String decBinaryValue : ReverseIterable.reversed(decBinaries.get(remainingValue))) {
-            if (!isMaxMinusOneFound && decBinaryValue.length() == decBinary.length() - 1) {
+            if (decBinaryValue.length() == decBinary.length() - 1) {
                 maxMinusOneString = decBinaryValue;
-                isMaxMinusOneFound = true;
             }
             if (decBinaryValue.length() > decBinary.length() - 1) continue;
             StringBuilder decBinaryValueBuilder = new StringBuilder(decBinaryValue);
@@ -103,6 +101,8 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
 
         String nextDecBinaryString;
         if (decBinArr[max - 1] + 2 > 9) {
+            if (maxMinusOneString.equalsIgnoreCase(decBinary.substring(1))) return decBinariesForValue;
+
             char[] decBinArrChar2 = maxMinusOneString.toCharArray();
             int[] decBinArr2 = new int[decBinArrChar.length];
             for (int i = 0; i < decBinArrChar2.length; i++) {
