@@ -37,4 +37,11 @@ public class NumberOfDecBinariesTest {
         assertThat(decBinaries.decBinaryStringForPosition(position), is(equalTo(decBinary)));
     }
 
+    @Test
+    @Parameters(method = "positionAndItsDecBinary")
+    public void decBinaryStringForPositionDP(int position, String decBinary) throws Exception {
+        decBinaries = new NumberOfDecBinariesDP();
+        assertThat(decBinaries.decBinaryStringForPosition(position), is(equalTo(decBinary)));
+    }
+
 }
