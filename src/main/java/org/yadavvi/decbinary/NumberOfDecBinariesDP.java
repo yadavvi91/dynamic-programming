@@ -26,7 +26,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
 
     public static void main(String[] args) {
         NumberOfDecBinaries numberOfDecBinaries = new NumberOfDecBinariesDP();
-        System.out.println("For: " + 284 + " - " + numberOfDecBinaries.decBinaryStringForPosition(284));
+        System.out.println("For: " + 112 + " - " + numberOfDecBinaries.decBinaryStringForPosition(112));
     }
 
     @Override
@@ -56,12 +56,11 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
         if (sum == position) {
             return decBinaries.get(value - 1).peek();
         } else if (sum > position) {
-            /*int extra = sum - decBinaries.get(value - 1).size();
             Stack<String> stack = decBinaries.get(value - 1);
-            for (int i = 0; i < extra - 1; i++) {
+            for (int i = sum - decBinaries.get(value - 1).size(); i < position; i++) {
                 stack.pop();
             }
-            return stack.pop();*/
+            return stack.pop();
         }
         return null;
     }
