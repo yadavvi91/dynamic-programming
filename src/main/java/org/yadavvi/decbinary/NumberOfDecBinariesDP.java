@@ -24,7 +24,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
 
     public static void main(String[] args) {
         NumberOfDecBinaries numberOfDecBinaries = new NumberOfDecBinariesDP();
-        numberOfDecBinaries.decBinaryStringForPosition(10);
+        System.out.println("For: " + 4 + " - " + numberOfDecBinaries.decBinaryStringForPosition(4));
     }
 
     @Override
@@ -35,21 +35,16 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
         int sum = 2; // 0 has 1 decbinary representation - <0>, 1 has 1 decbinary representation - <1>
         int value = 2;
         while (sum < position) {
-            // <111001, 57> <decbinary, decimal> (here <binary, decimal> because a binary is also a valid decbinary)
             String binaryOfValue = getBinaryForDecimal(value);
-            // Get all the combinations possible for <1_____, 57>, <0_____, 57>, <00____, 57>, <000___, 57>,
-            // <0000__, 57>, <00000_, 57>, <000000, 57>. Of this (<0000__, 57>, <00000_, 57>, <000000, 57>) wouldn't
-            // exist because the largest value that can be formed using __ characters or less in DecBinary is <99, 27>
             decBinaries.add(getDecBinariesCombForADecNumber(value, binaryOfValue, new Stack<>()));
 
-            // Add the number of combinations for "value" to sum
             sum = sum + decBinaries.get(value).size();
             value++;
         }
 
         System.out.println(decBinaries);
         if (sum == position) {
-
+            return decBinaries.get(value - 1).peek();
         } else if (sum > position) {
 
         }
@@ -93,6 +88,7 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
 
             StringBuilder builder = new StringBuilder();
             decBinArr[max - 1] += 2;
+            decBinArr[max] -= 1;
             for (int i = 0; i < decBinArr.length - 1; i++) {
                 builder.append(decBinArr[i]);
             }
