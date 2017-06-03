@@ -43,7 +43,8 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
             decBinaries.add(getDecBinariesCombForADecNumber(value, binaryOfValue, new Stack<>()));
 
             // Add the number of combinations for "value" to sum
-            sum = sum + decBinaries.get(value).size(); value++;
+            sum = sum + decBinaries.get(value).size();
+            value++;
         }
 
         System.out.println(decBinaries);
@@ -75,29 +76,32 @@ public class NumberOfDecBinariesDP implements NumberOfDecBinaries {
             decBinariesForValue.push(decBinArrChar[max] + decBinaryValues);
         }
 
-        // Reduce 1 from max and add 2 to (max - 1) and get all combinations for them.
-        if (decBinArr[max] == 1) {
-            if (max - 1 >= 0 && decBinArr[max - 1] + 2 > 9) {
-                String decBinString = getTheMinimumRep(remainingValue);
-                if (decBinString.equalsIgnoreCase(decBinary.substring(1))) {
-                    return decBinariesForValue;
-                } else {
-                    decBinString = getTheRep(remainingValue, max - 1);
-                    if (decBinString == null) return decBinariesForValue;
-                    return getDecBinariesCombForADecNumber(remainingValue, decBinString, decBinariesForValue);
-                }
+        if (max - 1 >= 0 && decBinArr[max - 1] + 2 > 9) {
+            String decBinString = getTheMinimumRep(remainingValue);
+            if (decBinString.equalsIgnoreCase(decBinary.substring(1))) {
+                return decBinariesForValue;
             } else {
-                StringBuilder builder = new StringBuilder();
-                decBinArr[max - 1] += 2;
-                for (int i = 0; i < decBinArr.length - 1; i++) {
-                    builder.append(decBinArr[i]);
+                decBinString = getTheRep(remainingValue, max - 1);
+                if (decBinString == null) return decBinariesForValue;
+                if (decBinArr[max] > 1) {
+                    decBinString = (decBinArr[max] - 1) + decBinString;
                 }
-                String decBinString = builder.reverse().toString();
-                System.out.println("DecBinString: " + decBinString);
-                getDecBinariesCombForADecNumber(remainingValue, decBinString, decBinariesForValue);
+                return getDecBinariesCombForADecNumber(remainingValue, decBinString, decBinariesForValue);
             }
         } else {
+            if (max - 1 < 0) return decBinariesForValue;
 
+            StringBuilder builder = new StringBuilder();
+            decBinArr[max - 1] += 2;
+            for (int i = 0; i < decBinArr.length - 1; i++) {
+                builder.append(decBinArr[i]);
+            }
+            String decBinString = builder.reverse().toString();
+            System.out.println("DecBinString: " + decBinString);
+            if (decBinArr[max] > 1) {
+                decBinString = (decBinArr[max] - 1) + decBinString;
+            }
+            getDecBinariesCombForADecNumber(remainingValue, decBinString, decBinariesForValue);
         }
 
         return decBinariesForValue;
